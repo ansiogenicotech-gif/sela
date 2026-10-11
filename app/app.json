@@ -1,0 +1,2 @@
+{ "expo": { "name": "Selá", "slug": "sela", "version": "0.1.0", "orientation": "portrait", "backgroundColor": "#EAF3FA", "userInterfaceStyle": "light",
+  "ios": { "bundleIdentifier": "com.sela.app", "supportsTablet": true }, "android": { "package": "com.sela.app" } } }

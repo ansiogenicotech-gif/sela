@@ -1,0 +1,1 @@
+// TODO: ImageEditor (fases futuras)
