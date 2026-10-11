@@ -1,2 +1,29 @@
-{ "expo": { "name": "Selá", "slug": "sela", "version": "0.1.0", "orientation": "portrait", "backgroundColor": "#EAF3FA", "userInterfaceStyle": "light",
-  "ios": { "bundleIdentifier": "com.sela.app", "supportsTablet": true }, "android": { "package": "com.sela.app" } } }
+{
+  "expo": {
+    "name": "Selá",
+    "slug": "sela",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "backgroundColor": "#EAF3FA",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.sela.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.sela.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/icons/favicon.png",
+      "name": "Selá",
+      "shortName": "Selá",
+      "themeColor": "#CFE3F2",
+      "backgroundColor": "#EAF3FA"
+    },
+    "experiments": {
+      "baseUrl": "/sela"
+    }
+  }
+}
