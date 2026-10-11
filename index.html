@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selá</title>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Nunito:wght@400;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);--s1:#CFE3F2;--s2:#EAF3FA;--s3:#FBF8F1;--blue:#1F3A5F;--t2:#38526F;--gold:#C9A24B;--sage:#8FAE9A;--sh:0 12px 26px rgba(127,163,196,.38)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;height:100%;background:linear-gradient(#CFE3F2,#EAF3FA 55%,#FBF8F1) fixed;color:var(--blue);font-family:Nunito,system-ui,sans-serif;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body.hc{--t2:#10243F}body.hc .card,body.hc .chip{border:2px solid var(--blue)}
+.sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.cl{position:absolute;left:-40%;background:#fff;border-radius:100px;opacity:.55;animation:drift linear infinite}
+.cl::before,.cl::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cl::before{width:55%;height:190%;left:14%;top:-95%}.cl::after{width:40%;height:150%;left:48%;top:-60%}
+@keyframes drift{to{transform:translateX(190vw)}}
+@media(prefers-reduced-motion:reduce){.cl{animation:none;left:20%}}
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:20px 20px calc(110px + env(safe-area-inset-bottom,0px))}
+.screen{display:none}.screen.on{display:block}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;margin:0}
+.logo{font-size:3.6rem;text-align:center;letter-spacing:1px;line-height:1}
+.slogan{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;text-align:center;font-size:1.1rem;margin:6px 0 0}
+h2{font-size:2rem;line-height:1.15;margin-top:30px}h3{font-size:1.35rem;margin:22px 0 4px}
+p{margin:8px 0;color:var(--t2)}
+.card{background:rgba(255,255,255,.74);border:1px solid #fff;border-radius:28px;padding:16px;box-shadow:var(--sh);margin-top:16px}
+textarea,input[type=text],input[type=search],select{width:100%;font:inherit;font-size:1.05rem;color:var(--blue);background:#fff;border:1px solid rgba(201,162,75,.5);border-radius:18px;padding:12px 14px}
+textarea{min-height:110px;resize:vertical;padding-right:60px;border:0;background:transparent}
+.btn{font:inherit;font-weight:700;font-size:.98rem;min-height:52px;padding:0 18px;border-radius:999px;border:1px solid rgba(201,162,75,.45);background:linear-gradient(#fff,#EEF5FB);color:var(--blue);box-shadow:var(--sh);display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .12s}
+.btn:active{transform:scale(.97)}.btn.primary{background:linear-gradient(#1F3A5F,#35618F);color:#fff;width:100%;margin-top:16px}
+.btn.sm{min-height:44px;font-size:.9rem}
+.btn:focus-visible,.chip:focus-visible,.nav button:focus-visible,.mic:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.9rem;background:rgba(255,255,255,.85);border:0;border-radius:999px;padding:10px 14px;color:var(--blue);cursor:pointer}
+.mic{position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(201,162,75,.6);background:#fff;font-size:1.3rem;cursor:pointer}
+.mic.rec{background:#FBE9D0}
+.verse{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.55rem;line-height:1.3;color:var(--blue);margin:6px 0}
+.ref{font-weight:700;color:var(--gold)}
+.note{font-size:.82rem;background:rgba(255,255,255,.6);border-radius:14px;padding:10px 12px;margin-top:14px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:space-around;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-top:1px solid rgba(201,162,75,.4);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;max-width:110px;font:inherit;font-size:.72rem;font-weight:700;color:var(--t2);background:none;border:0;padding:6px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:14px}
+.nav button span{font-size:1.4rem}.nav button.on{color:var(--blue);background:var(--s2)}
+.back{background:none;border:0;font:inherit;font-weight:700;color:var(--blue);padding:8px 0;cursor:pointer}
+label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 4px;color:var(--blue)}
+canvas{width:100%;height:auto;border-radius:18px;box-shadow:var(--sh);background:#fff;display:block;margin-top:12px}
+.item{display:flex;flex-direction:column;gap:6px}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--blue);color:#fff;padding:10px 18px;border-radius:999px;z-index:9;font-size:.9rem;opacity:0;transition:opacity .25s;pointer-events:none;max-width:90%;text-align:center}
+#toast.on{opacity:1}
+.sw{display:flex;align-items:center;gap:10px;margin-top:12px}.sw input{width:22px;height:22px}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true">
+<div class="cl" style="top:8%;width:150px;height:44px;animation-duration:70s"></div>
+<div class="cl" style="top:28%;width:100px;height:30px;opacity:.4;animation-duration:95s;animation-delay:-30s"></div>
+<div class="cl" style="top:55%;width:190px;height:54px;animation-duration:120s;animation-delay:-60s"></div>
+<div class="cl" style="top:78%;width:120px;height:36px;opacity:.6;animation-duration:85s;animation-delay:-10s"></div>
+</div>
+<main>
+<section class="screen on" id="home">
+<h1 class="logo">Selá</h1>
+<p class="slogan">Uma pausa para ouvir a Palavra<br>e cuidar do coração.</p>
+<h2>Como está o seu coração hoje?</h2>
+<p>Escreva ou conte o que você está vivendo. Encontre uma reflexão bíblica para acompanhar seu momento.</p>
+<div class="card" style="position:relative">
+<textarea id="txt" placeholder="Escreva aqui, no seu tempo…" aria-label="Como você está"></textarea>
+<button class="mic" id="mic" aria-label="Falar por voz">🎙️</button>
+</div>
+<button class="btn primary" id="go">☁️ Encontrar uma reflexão</button>
+<div class="grid">
+<button class="btn" data-go="daily">🌅 Versículo do dia</button>
+<button class="btn" data-go="image">🕊️ Criar imagem</button>
+<button class="btn" data-go="saved">🤍 Minhas mensagens</button>
+<button class="btn" data-go="settings">🌿 Ajustes</button>
+</div>
+<p style="margin-top:26px;font-size:.9rem">Para começar, toque em uma frase:</p>
+<div class="chips" id="chips"></div>
+<p style="text-align:center;margin-top:28px"><a href="#" data-go="safety" style="color:var(--blue)">Precisa de ajuda agora? CVV 188, apoio emocional 24h</a></p>
+<div class="note">Modo demonstração: as reflexões são textos pré-escritos por tema, não geradas por IA. Os versículos vêm de uma lista pequena (ARC) e devem ser conferidos em uma base oficial antes da publicação.</div>
+</section>
+
+<section class="screen" id="reflect"></section>
+
+<section class="screen" id="image">
+<button class="back" data-go="home">← Voltar</button>
+<h2 style="margin-top:4px">Criar imagem</h2>
+<div class="card" id="imgverse"></div>
+<canvas id="cv" role="img" aria-label="Prévia da imagem com o versículo"></canvas>
+<p id="valid" style="font-size:.85rem"></p>
+<div class="card">
+<label for="comp">Frase complementar (opcional)</label><input type="text" id="comp" maxlength="90" placeholder="Ex.: Respire fundo. Deus está contigo.">
+<label for="fmt">Formato</label><select id="fmt"><option value="v">Instagram 1080 × 1350</option><option value="s">Stories e Reels 1080 × 1920</option><option value="q">Quadrado 1080 × 1080</option></select>
+<label for="pal">Paleta</label><select id="pal"></select>
+<label for="sty">Estilo do fundo</label><select id="sty"><option value="ceu">Céu, luz e horizonte</option><option value="nat">Natureza e paisagens</option><option value="abs">Abstrato suave</option><option value="min">Minimalista</option></select>
+<label for="al">Alinhamento</label><select id="al"><option value="center">Centro</option><option value="left">Esquerda</option><option value="right">Direita</option></select>
+<label for="pos">Posição do texto</label><select id="pos"><option value="c">Meio</option><option value="t">Alto</option><option value="b">Baixo</option></select>
+<label for="fs">Tamanho da fonte</label><input type="range" id="fs" min="44" max="96" value="68" style="width:100%">
+<div class="sw"><input type="checkbox" id="brand" checked><label for="brand" style="margin:0">Mostrar "Selá" discretamente</label></div>
+</div>
+<div class="row">
+<button class="btn sm" id="dl">⬇️ Baixar imagem</button>
+<button class="btn sm" id="shr">📤 Compartilhar</button>
+<button class="btn sm" id="again">🔁 Outra versão</button>
+<button class="btn sm" id="cp">📋 Copiar versículo</button>
+<button class="btn sm" data-go="reflect">↩︎ Voltar à reflexão</button>
+</div>
+<p style="font-size:.85rem;margin-top:14px">O texto é aplicado sobre o fundo pelo próprio app e conferido com a base antes de liberar a imagem. Nada é publicado sem você tocar em compartilhar.</p>
+</section>
+
+<section class="screen" id="saved">
+<h2 style="margin-top:4px">Minhas mensagens</h2>
+<input type="search" id="q" placeholder="Pesquisar por tema ou referência" aria-label="Pesquisar mensagens salvas" style="margin-top:12px">
+<div id="list"></div>
+</section>
+
+<section class="screen" id="settings">
+<h2 style="margin-top:4px">Privacidade e acessibilidade</h2>
+<div class="card">
+<h3 style="margin-top:0">Privacidade</h3>
+<p>Seus textos são processados neste aparelho. Nada é enviado a servidores nesta versão. Mensagens salvas ficam apenas no navegador deste aparelho.</p>
+<div class="sw"><input type="checkbox" id="hist"><label for="hist" style="margin:0">Guardar mensagens salvas neste aparelho</label></div>
+<button class="btn sm" id="wipe" style="margin-top:14px">🗑️ Apagar todos os meus dados</button>
+</div>
+<div class="card">
+<h3 style="margin-top:0">Acessibilidade</h3>
+<label for="zoom">Tamanho do texto</label><input type="range" id="zoom" min="90" max="140" value="100" style="width:100%">
+<div class="sw"><input type="checkbox" id="hc"><label for="hc" style="margin:0">Alto contraste</label></div>
+</div>
+<p style="text-align:center;margin-top:20px"><a href="#" data-go="safety" style="color:var(--blue)">Apoio imediato</a></p>
+</section>
+
+<section class="screen" id="safety">
+<button class="back" data-go="home">← Voltar</button>
+<h2 style="margin-top:4px">Você não está sozinho</h2>
+<div class="card">
+<p id="safemsg">O Selá oferece reflexões, mas não substitui atendimento psicológico, médico, pastoral ou de emergência.</p>
+<p><b>CVV: 188</b> (apoio emocional, 24h, gratuito)<br><b>SAMU: 192</b> · <b>Polícia: 190</b></p>
+<p>Se possível, procure agora alguém de confiança perto de você.</p>
+<div class="row"><a class="btn" href="tel:188" style="text-decoration:none">📞 Ligar para o 188</a></div>
+</div>
+</section>
+</main>
+<nav class="nav" aria-label="Navegação principal">
+<button data-go="home"><span>☁️</span>Início</button>
+<button data-go="daily"><span>🌅</span>Versículo</button>
+<button data-go="image"><span>🕊️</span>Imagem</button>
+<button data-go="saved"><span>🤍</span>Salvos</button>
+<button data-go="settings"><span>🌿</span>Ajustes</button>
+</nav>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const V={
+sl46:{ref:"Salmos 46:1",t:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.",c:"O salmista descreve Deus como abrigo seguro. A palavra “presente” lembra que o socorro não está distante."},
+sl27:{ref:"Salmos 27:1",t:"O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?",c:"Davi faz perguntas que já têm resposta na sua fé: com Deus como luz e força, o medo perde o poder de mandar."},
+sl55:{ref:"Salmos 55:22",t:"Lança o teu cuidado sobre o Senhor, e ele te susterá; nunca permitirá que o justo seja abalado.",c:"O convite é entregar a Deus o peso das preocupações, em vez de carregá-lo sozinho."},
+fp4:{ref:"Filipenses 4:6",t:"Não estejais ansiosos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplicas, com ação de graças.",c:"Paulo não ignora as dificuldades. Ele indica levar cada pedido a Deus, com gratidão."},
+sl34:{ref:"Salmos 34:18",t:"Perto está o Senhor dos que têm o coração quebrantado, e salva os contritos de espírito.",c:"A dor não afasta Deus. O texto afirma que ele se aproxima de quem está ferido por dentro."},
+sl121:{ref:"Salmos 121:1-2",t:"Elevo os meus olhos para os montes, de onde vem o meu socorro. O meu socorro vem do Senhor, que fez o céu e a terra.",c:"O peregrino olha para o caminho à frente e declara de onde vem sua ajuda: do Criador, e não só das próprias forças."},
+sl4:{ref:"Salmos 4:8",t:"Em paz me deitarei e dormirei, porque só tu, Senhor, me fazes habitar em segurança.",c:"Davi encontra descanso não por estar sem problemas, mas por confiar em quem o guarda."},
+mt11:{ref:"Mateus 11:28",t:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.",c:"Jesus convida quem está esgotado a se aproximar dele, sem exigir que a pessoa esteja forte."},
+js1:{ref:"Josué 1:9",t:"Não to mandei eu? Esforça-te, e tem bom ânimo; não pasmes, nem te espantes, porque o Senhor teu Deus é contigo, por onde quer que andares.",c:"A coragem aqui se apoia numa presença: Deus acompanha em cada lugar do caminho."},
+jr29:{ref:"Jeremias 29:11",t:"Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais.",c:"Dirigida aos exilados na Babilônia, a promessa fala do cuidado de Deus com o seu povo, sem garantir resultados específicos."},
+sl118:{ref:"Salmos 118:1",t:"Louvai ao Senhor, porque ele é bom, porque a sua benignidade dura para sempre.",c:"O salmo convida a agradecer lembrando que a bondade de Deus não depende das circunstâncias."},
+sl23:{ref:"Salmos 23:1",t:"O Senhor é o meu pastor, nada me faltará.",c:"A imagem do pastor transmite cuidado e guia. Quem é conduzido não precisa carregar tudo sozinho."}};
+const TR="Almeida Revista e Corrigida (ARC)";
+const TH={
+luto:{k:/luto|saudade|perdi|faleceu|morreu|morte|enterro/i,v:["sl34","mt11"],i:"Sinto muito pela sua perda. A saudade é real e merece cuidado. Que esta Palavra seja companhia, sem pressa.",r:"Permita-se sentir. Pode ajudar conversar com alguém de confiança sobre quem você perdeu e contar uma lembrança boa hoje.",p:"Senhor, acolhe meu coração cansado de saudade. Consola-me e traz pessoas que me abracem. Amém."},
+solidao:{k:/sozinh|solid[aã]o|abandon|ningu[eé]m/i,v:["js1","sl34","sl23"],i:"Sentir-se sozinho dói, e você fez bem em colocar isso em palavras.",r:"Hoje, considere procurar uma pessoa para uma conversa curta: uma mensagem, uma ligação ou um encontro na sua comunidade.",p:"Senhor, lembra-me de que não caminho só. Aproxima de mim pessoas boas. Amém."},
+medo:{k:/medo|insegur|receio|assust|pavor|coragem/i,v:["sl27","js1","sl46"],i:"O medo pesa, mas você não precisa enfrentá-lo sozinho. Vamos dar uma pausa juntos.",r:"Separe o que você pode fazer hoje do que foge ao seu controle. Dê um pequeno passo e converse com alguém de confiança.",p:"Senhor, acalma meu coração e dá-me coragem para o próximo passo. Amém."},
+ansiedade:{k:/preocup|ansios|ansied|futuro|nervos|angústia|angustia|estresse|estressad/i,v:["fp4","sl55","jr29","sl121"],i:"Preocupações podem tomar conta da mente. Respire fundo: este é um momento de pausa.",r:"Escreva em um papel o que está pesando e escolha uma única coisa para cuidar hoje. Respire devagar por alguns instantes.",p:"Senhor, entrego a ti o que me inquieta. Dá-me paz e clareza para o dia de hoje. Amém."},
+descanso:{k:/dormir|sono|insônia|insonia|descans|paz|noite|cansad/i,v:["sl4","mt11","sl23"],i:"Que bom que você busca descanso. Merece uma pausa tranquila.",r:"Antes de dormir, deixe o celular de lado, respire devagar e agradeça por uma coisa do dia, por pequena que seja.",p:"Senhor, guarda o meu descanso e acalma meus pensamentos. Amém."},
+gratidao:{k:/agradec|gratid|obrigad|aben[cç]oad|feliz|alegr/i,v:["sl118","sl23"],i:"Que alegria ler isso! Agradecer faz bem ao coração.",r:"Anote três coisas boas deste dia e, se puder, agradeça a alguém que fez parte delas.",p:"Senhor, obrigado pelas coisas boas que me deste. Ensina-me a reconhecê-las. Amém."},
+esperanca:{k:/./,v:["sl121","sl23","jr29","sl46"],i:"Obrigado por compartilhar o que está vivendo. Mesmo nos dias difíceis, há espaço para esperança.",r:"Pense em um momento passado em que você foi sustentado. Que ele lembre que este tempo também é parte do caminho.",p:"Senhor, renova minha esperança e mostra o próximo passo. Amém."}};
+const CRISE=/me matar|suic[ií]d|quero morrer|acabar com (tudo|minha vida)|me machucar|automutila|n[aã]o quero (mais )?viver|apanh|viol[eê]ncia|me bate|abus/i;
+const SUG=["Estou passando por um momento difícil.","Estou preocupado com meu futuro.","Preciso de esperança para continuar.","Quero agradecer por algo bom.","Estou enfrentando problemas familiares.","Preciso encontrar paz antes de dormir."];
+const PAL={sage:["Verde-sálvia",["#DCE8DF","#9FBCA9"],"#1F3A5F","#C9A24B"],azul:["Azul profundo",["#1F3A5F","#3D6A9A"],"#FFFFFF","#E5C47A"],areia:["Areia e bege",["#F6EEDD","#E6D3AE"],"#4A3B22","#B58A2E"],ouro:["Branco e dourado",["#FFFFFF","#F5EBD0"],"#3D3320","#C9A24B"],poente:["Tons de pôr do sol",["#F7C79A","#B5628A"],"#2E1F3A","#FFF0D2"],pb:["Preto e branco",["#161616","#3A3A3A"],"#FFFFFF","#CFCFCF"]};
+let S={id:null,theme:"esperanca",idx:0,user:"",prayer:false,msg:null};
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const cfg=LS.get("sela_cfg",{hist:true,zoom:100,hc:false});
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)}
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function go(n){
+ if(n==="daily"){const d=Math.floor(Date.now()/864e5),ks=Object.keys(V);S.id=ks[d%ks.length];S.theme=Object.keys(TH).find(k=>TH[k].v.includes(S.id))||"esperanca";S.user="";S.daily=true;n="reflect";render()}
+ if(n==="reflect"&&!S.id){toast("Escreva como você está para receber uma reflexão.");n="home"}
+ if(n==="image"&&!S.id){const ks=Object.keys(V);S.id=ks[0];S.theme="medo"}
+ $$(".screen").forEach(s=>s.classList.toggle("on",s.id===n));
+ $$(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.go===n||(n==="reflect"&&b.dataset.go==="daily")));
+ if(n==="image")initImg();if(n==="saved")renderSaved();if(n==="settings")initSet();
+ window.scrollTo(0,0)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){e.preventDefault();go(b.dataset.go)}});
+function find(text){text=text.trim();if(CRISE.test(text)&&/(matar|suic|morrer|machucar|automutila|viver|apanh|viol|bate|abus)/i.test(text)){$("#safemsg").textContent="Sentimos muito que você esteja passando por isso. Você merece cuidado e não precisa enfrentar sozinho.";go("safety");return}
+ S.theme=Object.keys(TH).find(k=>TH[k].k.test(text));S.idx=0;S.user=text;S.daily=false;S.id=TH[S.theme].v[0];render();go("reflect")}
+function render(){
+ const t=TH[S.theme],v=V[S.id];
+ $("#reflect").innerHTML=`<button class="back" data-go="home">← Voltar</button>
+ <h2 style="margin-top:4px">${S.daily?"Versículo do dia":"Uma palavra para o seu momento"}</h2>
+ <div class="card"><p>${S.daily?"Uma pausa para a Palavra hoje.":esc(t.i)}</p></div>
+ <h3>Palavra bíblica</h3>
+ <div class="card"><div class="verse">“${esc(v.t)}”</div><div class="ref">${v.ref} · ${TR}</div></div>
+ <h3>O que essa passagem nos ensina</h3><p>${esc(v.c)}</p>
+ <h3>Uma reflexão para hoje</h3><p>${esc(t.r)}</p>
+ <div class="row"><button class="btn sm" id="bpray">🙏 Se desejar, uma oração</button></div>
+ <div class="card" id="pray" style="display:none"><p style="margin:0">${esc(t.p)}</p></div>
+ <h3>Ações</h3>
+ <div class="row">
+ <button class="btn sm" data-go="image">🕊️ Criar imagem</button>
+ <button class="btn sm" id="blis">🔊 Ouvir</button>
+ <select id="rate" aria-label="Velocidade da voz" style="width:auto;min-height:44px"><option value="0.8">Lenta</option><option value="1" selected>Normal</option><option value="1.2">Rápida</option></select>
+ <button class="btn sm" id="bsave">🤍 Salvar</button>
+ <button class="btn sm" id="bother">🔄 Outra passagem</button>
+ <button class="btn sm" id="bshare">📤 Compartilhar</button></div>
+ <div class="note">Reflexão em modo demonstração: texto pré-escrito, não gerado por IA e sem substituir ajuda profissional, médica ou pastoral. Em sofrimento intenso, ligue 188 (CVV).</div>`;
+ $("#bpray").onclick=()=>{const p=$("#pray");p.style.display=p.style.display==="none"?"block":"none"};
+ $("#blis").onclick=listen;$("#bsave").onclick=save;$("#bshare").onclick=share;
+ $("#bother").onclick=()=>{const l=t.v;S.idx=(l.indexOf(S.id)+1)%l.length;if(S.daily){const ks=Object.keys(V);S.id=ks[(ks.indexOf(S.id)+1)%ks.length]}else S.id=l[S.idx];render();toast("Outra passagem escolhida")}}
+function plain(){const v=V[S.id];return `“${v.t}” — ${v.ref} (${TR})`}
+function listen(){if(!("speechSynthesis" in window)){toast("Seu navegador não oferece leitura em áudio.");return}
+ const ss=speechSynthesis;if(ss.speaking){ss.cancel();$("#blis").textContent="🔊 Ouvir";return}
+ const v=V[S.id],u=new SpeechSynthesisUtterance(`${v.ref}. ${v.t}. ${v.c} ${TH[S.theme].r}`);u.lang="pt-BR";u.rate=+$("#rate").value;u.onend=()=>$("#blis").textContent="🔊 Ouvir";ss.speak(u);$("#blis").textContent="⏹️ Parar"}
+function save(){if(!cfg.hist){toast("Ative o histórico em Ajustes para salvar.");return}
+ const l=LS.get("sela_saved",[]);if(l.some(x=>x.id===S.id&&x.theme===S.theme)){toast("Já está salva.");return}
+ l.unshift({id:S.id,theme:S.theme,date:new Date().toLocaleDateString("pt-BR")});LS.set("sela_saved",l);toast("Mensagem salva")}
+async function share(){try{if(navigator.share){await navigator.share({title:"Selá",text:plain()})}else{await navigator.clipboard.writeText(plain());toast("Versículo copiado")}}catch{}}
+function renderSaved(){const q=$("#q").value.toLowerCase(),l=LS.get("sela_saved",[]).filter(x=>(V[x.id].ref+" "+x.theme+" "+V[x.id].t).toLowerCase().includes(q));
+ $("#list").innerHTML=l.length?l.map((x,i)=>`<div class="card item"><div class="ref">${V[x.id].ref} · ${x.theme} · ${x.date}</div><div>${esc(V[x.id].t)}</div><div class="row" style="margin-top:4px"><button class="btn sm" data-o="${x.id}|${x.theme}">Abrir</button><button class="btn sm" data-i="${x.id}|${x.theme}">Imagem</button><button class="btn sm" data-d="${x.id}|${x.theme}">Excluir</button></div></div>`).join(""):`<div class="card"><p style="margin:0">Nada por aqui ainda. Salve uma reflexão e ela aparece aqui. Seus dados ficam só neste aparelho.</p></div>`}
+$("#q").oninput=renderSaved;
+$("#list").onclick=e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.o||b.dataset.i||b.dataset.d,[id,th]=k.split("|");
+ if(b.dataset.d){LS.set("sela_saved",LS.get("sela_saved",[]).filter(x=>!(x.id===id&&x.theme===th)));renderSaved();toast("Excluída");return}
+ S.id=id;S.theme=th;S.daily=false;render();go(b.dataset.i?"image":"reflect")};
+function initSet(){$("#hist").checked=cfg.hist;$("#zoom").value=cfg.zoom;$("#hc").checked=cfg.hc}
+function applyCfg(){document.documentElement.style.fontSize=cfg.zoom+"%";document.body.classList.toggle("hc",cfg.hc);LS.set("sela_cfg",cfg)}
+$("#hist").onchange=e=>{cfg.hist=e.target.checked;applyCfg()};$("#zoom").oninput=e=>{cfg.zoom=+e.target.value;applyCfg()};$("#hc").onchange=e=>{cfg.hc=e.target.checked;applyCfg()};
+$("#wipe").onclick=()=>{if(confirm("Apagar mensagens salvas e preferências deste aparelho?")){try{localStorage.clear()}catch{}Object.assign(cfg,{hist:true,zoom:100,hc:false});applyCfg();initSet();toast("Dados apagados")}};
+// Home
+$("#chips").innerHTML=SUG.map(s=>`<button class="chip">${s}</button>`).join("");
+$("#chips").onclick=e=>{if(e.target.classList.contains("chip")){$("#txt").value=e.target.textContent;$("#txt").focus()}};
+$("#go").onclick=()=>{if(!$("#txt").value.trim()){toast("Escreva ou fale um pouco para começar.");return}find($("#txt").value)};
+$("#mic").onclick=()=>{const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){toast("Voz indisponível neste navegador. Você pode digitar.");return}
+ const r=new R();r.lang="pt-BR";r.interimResults=false;const m=$("#mic");m.classList.add("rec");toast("Ouvindo… (o navegador usa um serviço externo de voz)");
+ r.onresult=e=>{$("#txt").value=($("#txt").value+" "+e.results[0][0].transcript).trim();toast("Revise o texto antes de enviar")};
+ r.onerror=()=>toast("Não foi possível usar o microfone. Digite, por favor.");r.onend=()=>m.classList.remove("on","rec");r.start()};
+// Imagem
+const SZ={v:[1080,1350],s:[1080,1920],q:[1080,1080]};
+function initImg(){const v=V[S.id];$("#imgverse").innerHTML=`<div class="verse" style="font-size:1.2rem">“${esc(v.t)}”</div><div class="ref">${v.ref}</div>`;if(!$("#pal").options.length)$("#pal").innerHTML=Object.entries(PAL).map(([k,p])=>`<option value="${k}">${p[0]}</option>`).join("");draw()}
+function wrap(c,t,w){const o=[];let l="";t.split(" ").forEach(x=>{const n=l?l+" "+x:x;if(c.measureText(n).width>w&&l){o.push(l);l=x}else l=n});if(l)o.push(l);return o}
+function draw(seed){const cv=$("#cv"),[W,H]=SZ[$("#fmt").value],c=cv.getContext("2d"),p=PAL[$("#pal").value],v=V[S.id],sty=$("#sty").value;
+ cv.width=W;cv.height=H;seed=seed??draw.s??1;draw.s=seed;const rnd=(i)=>{const x=Math.sin(seed*91+i*17)*1e4;return x-Math.floor(x)};
+ const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,p[1][0]);g.addColorStop(1,p[1][1]);c.fillStyle=g;c.fillRect(0,0,W,H);
+ if(sty==="ceu"){const r=c.createRadialGradient(W/2,H*.9,10,W/2,H*.9,W*.9);r.addColorStop(0,p[3]+"AA");r.addColorStop(1,p[3]+"00");c.fillStyle=r;c.fillRect(0,0,W,H);
+  c.fillStyle="rgba(255,255,255,.35)";for(let i=0;i<5;i++){const x=rnd(i)*W,y=H*(.1+rnd(i+9)*.8),s=60+rnd(i+3)*70;[[0,0,1],[.8,.2,.8],[-.8,.25,.7],[.2,-.4,.8]].forEach(([a,b,k])=>{c.beginPath();c.arc(x+a*s,y+b*s,s*k*.7,0,7);c.fill()})}}
+ if(sty==="nat"){[[.8,.35],[.88,.55]].forEach(([y,a],i)=>{c.fillStyle=p[3]+(i?"55":"33");c.beginPath();c.moveTo(0,H);c.lineTo(0,H*y);for(let x=0;x<=W;x+=40)c.lineTo(x,H*y-Math.sin(x/W*3+seed+i)*H*.05);c.lineTo(W,H);c.fill()})}
+ if(sty==="abs"){for(let i=0;i<4;i++){c.fillStyle=p[3]+"26";c.beginPath();c.arc(rnd(i)*W,rnd(i+5)*H,160+rnd(i+2)*220,0,7);c.fill()}}
+ const fs=+$("#fs").value,al=$("#al").value,m=110,w=W-2*m,fam='"Cormorant Garamond",Georgia,serif';
+ c.font=`600 ${fs}px ${fam}`;const lines=wrap(c,"“"+v.t+"”",w),lh=fs*1.25,comp=$("#comp").value.trim();
+ const refH=60,compH=comp?70:0,bh=lines.length*lh+refH+compH+30,pos=$("#pos").value;
+ let y=pos==="t"?H*.12:pos==="b"?H-bh-H*.12:(H-bh)/2;if(y<80)y=80;
+ const ax=al==="left"?m:al==="right"?W-m:W/2;c.textAlign=al;c.textBaseline="top";c.fillStyle=p[2];c.font=`600 ${fs}px ${fam}`;
+ lines.forEach((l,i)=>c.fillText(l,ax,y+i*lh));y+=lines.length*lh+24;
+ c.fillStyle=p[3];c.font='700 34px Nunito,system-ui,sans-serif';c.fillText(`${v.ref} · ARC`,ax,y);y+=refH;
+ if(comp){c.fillStyle=p[2];c.font=`italic 500 ${Math.round(fs*.5)}px ${fam}`;wrap(c,comp,w).forEach((l,i)=>c.fillText(l,ax,y+i*fs*.6))}
+ if($("#brand").checked){c.textAlign="center";c.fillStyle=p[2]+"AA";c.font=`600 40px ${fam}`;c.fillText("Selá",W/2,H-100)}
+ // validação: o texto desenhado precisa ser idêntico ao da base
+ const ok=lines.join(" ").replace(/[“”]/g,"")===V[S.id].t;$("#valid").textContent=ok?"✓ Texto e referência conferidos com a base.":"Texto divergente da base: imagem bloqueada.";$("#valid").style.color=ok?"#2F6B4A":"#A33";draw.ok=ok}
+["fmt","pal","sty","al","pos","fs","comp","brand"].forEach(i=>$("#"+i).addEventListener("input",()=>draw()));
+$("#again").onclick=()=>{draw((draw.s||1)+1);toast("Nova versão")};
+$("#cp").onclick=async()=>{try{await navigator.clipboard.writeText(plain());toast("Versículo copiado")}catch{toast("Não foi possível copiar")}};
+const blob=()=>new Promise(r=>$("#cv").toBlob(r,"image/png"));
+$("#dl").onclick=async()=>{if(!draw.ok)return toast("Imagem bloqueada: texto não confere.");const b=await blob(),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`sela-${S.id}.png`;a.click();toast("Imagem baixada")};
+$("#shr").onclick=async()=>{if(!draw.ok)return toast("Imagem bloqueada: texto não confere.");const b=await blob(),f=new File([b],`sela-${S.id}.png`,{type:"image/png"});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],title:"Selá"});else toast("Use Baixar imagem e compartilhe pelo celular.")}catch{}};
+document.fonts&&document.fonts.ready.then(()=>{if($("#image").classList.contains("on"))draw()});
+applyCfg();
+</script>
+</body>
+</html>

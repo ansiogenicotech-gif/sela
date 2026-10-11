@@ -24,16 +24,10 @@ Abra o **Expo Go** no celular e leia o QR Code.
 
 
 ## Acesso pelo celular (link público)
-Cada `git push` na branch `main` publica o app automaticamente no GitHub Pages.
-
-1. No GitHub: **Settings → Pages → Source: GitHub Actions**.
-2. Aba **Actions**: aguarde o workflow "Publicar Selá (web)" ficar verde.
-3. Link do app: `https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/`
-4. No celular, abra o link e use **Adicionar à tela inicial** (Chrome: menu ⋮; iPhone/Safari: Compartilhar).
-
-O backend (IA) precisa de hospedagem própria (Render, Railway, etc.). Depois, em
-**Settings → Secrets and variables → Actions → Variables**, crie `EXPO_PUBLIC_API_URL` com o endereço dele.
-Chaves de API nunca vão para o GitHub: ficam só no serviço do backend.
+O arquivo `index.html` na raiz é a versão navegável do Selá.
+1. No GitHub: **Settings → Pages → Source: Deploy from a branch → main → / (root) → Save**.
+2. Em 1 a 3 minutos o link aparece no topo da página: `https://SEU_USUARIO.github.io/NOME_DO_REPOSITORIO/`
+3. No celular, abra o link e use **Adicionar à tela inicial**.
 
 ## Publicar no GitHub
 ```bash
